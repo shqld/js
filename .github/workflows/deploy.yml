@@ -1,0 +1,70 @@
+name: Create and publish a package
+on:
+    push:
+        branches:
+            - main
+            - develop
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Runtime versions
+              run: |
+                  node -v
+                  yarn -v
+            - name: npm install
+              run: |
+                  yarn install
+            - name: npm run test
+              run: |
+                  yarn test
+            # - uses: actions/upload-artifact@main
+            #   with:
+            #       name: webpack artifacts
+            #       path: public/
+
+    build-and-push-image:
+        runs-on: ubuntu-latest
+        needs: build
+        permissions:
+            contents: read
+            packages: write
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Runtime versions
+              run: |
+                  node -v
+                  yarn -v
+            - name: Log in to GitHub Container Registry
+              uses: docker/login-action@v1
+              with:
+                  registry: ghcr.io
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.DOCKER_REGISTRY_TOKEN }}
+            - name: Install dependencies
+              run: |
+                  yarn install
+            - name: Build application
+              run: |
+                  yarn build
+            - name: Dry run application
+              run: |
+                  yarn start:dry
+            - name: Exclude dev-only dependencies
+              run: |
+                  yarn install --production
+            - name: Build docker image
+              run: |
+                  docker build \
+                    -t ghcr.io/${{ github.repository }}/app:${{ github.sha }} \
+                    -t ghcr.io/${{ github.repository }}/app:latest \
+                    .
+            - name: Dry run docker container
+              run: |
+                  docker run -e DRY=true ghcr.io/${{ github.repository }}/app:${{ github.sha }}
+            - name: Push docker image to Github Package Registry
+              run: |
+                  docker push --all-tags ghcr.io/${{ github.repository }}/app

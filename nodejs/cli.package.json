@@ -1,0 +1,9 @@
+{
+    "extends": "./package.json",
+    "scripts": {},
+    "dependencies": {
+        "arg": "^5",
+        "prompts": "^2"
+    },
+    "devDependencies": {}
+}

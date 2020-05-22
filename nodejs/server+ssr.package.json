@@ -1,0 +1,6 @@
+{
+    "extends": "./server.package.json",
+    "scripts": {},
+    "dependencies": {},
+    "devDependencies": {}
+}

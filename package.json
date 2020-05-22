@@ -1,0 +1,47 @@
+{
+    "name": "@shqld/js",
+    "description": "Boilerplate for js projects",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "init": "npm install && node .scripts/init.js",
+        "test": "run-p test:*",
+        "test:unit": "exit 0",
+        "test:fmt": "prettier --check --loglevel warn .scripts",
+        "test:lint": "eslint --ext .js .scripts",
+        "test:type": "tsc --noEmit --allowJs --checkJs .scripts/*.js",
+        "fix": "run-s fix:*",
+        "fix:fmt": "prettier --write .",
+        "fix:lint": "eslint --ext .ts --fix ."
+    },
+    "dependencies": {
+        "arg": "^5.0.1",
+        "debug": "^4.3.3",
+        "prompts": "^2.4.2"
+    },
+    "devDependencies": {
+        "@types/node": "^17.0.8",
+        "@typescript-eslint/eslint-plugin": "^5.8.1",
+        "@typescript-eslint/parser": "^5.8.1",
+        "eslint": "^8.6.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-import": "^2.25.3",
+        "eslint-plugin-prettier": "^4.0.0",
+        "npm-run-all": "^4.1.5",
+        "prettier": "^2.5.1",
+        "typescript": "^4.3.5"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/shqld/js.git"
+    },
+    "author": {
+        "name": "Sho Miyamoto",
+        "url": "https://github.com/shqld"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/shqld/js/issues"
+    },
+    "homepage": "https://github.com/shqld/js#readme"
+}

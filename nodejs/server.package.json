@@ -1,0 +1,14 @@
+{
+    "extends": "./package.json",
+    "scripts": {},
+    "dependencies": {
+        "fastify": "^3",
+        "fastify-compress": "^4",
+        "fastify-etag": "^2",
+        "fastify-plugin": "^3",
+        "fastify-static": "^4"
+    },
+    "devDependencies": {
+        "pino-pretty": "^7.2.0"
+    }
+}
