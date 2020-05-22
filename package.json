@@ -1,0 +1,26 @@
+{
+    "name": "@shqld/boilerplate",
+    "version": "0.0.1",
+    "description": "A personal boilerplate for web development",
+    "repository": "git@github.com:shqld/boilerplate.git",
+    "author": "Sho Miyamoto <shomiyamoto.dev@gmail.com>",
+    "license": "MIT",
+    "main": "dist/index.js",
+    "scripts": {
+        "build:node": "babel src -d dist -x .ts",
+        "test": "tsc && jest"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.8.4",
+        "@babel/core": "^7.9.6",
+        "@babel/plugin-proposal-nullish-coalescing-operator": "^7.8.3",
+        "@babel/plugin-proposal-optional-chaining": "^7.9.0",
+        "@babel/preset-env": "^7.9.6",
+        "@babel/preset-typescript": "^7.9.0",
+        "@types/jest": "^25.2.3",
+        "@types/node": "^14.0.5",
+        "jest": "^26.0.1",
+        "prettier": "^2.0.5",
+        "typescript": "^3.9.3"
+    }
+}
