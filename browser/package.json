@@ -6,7 +6,8 @@
     "private": true,
     "scripts": {
         "build": "rollup -c",
-        "dev:build": "BUILD_ENV=development esbuild",
+        "dev:build": "BUILD_ENV=development esbuild --bundle --sourcemap --format=iife --outfile=build/main.js src/main.ts",
+        "dev:watch": "npm run dev:build -- --watch",
         "test": "run-p test:*",
         "test:unit": "exit 0",
         "test:fmt": "prettier --check --loglevel warn .",
