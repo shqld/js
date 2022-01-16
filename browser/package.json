@@ -7,7 +7,6 @@
     "scripts": {
         "build": "rollup -c",
         "dev:build": "BUILD_ENV=development esbuild",
-        "dev:watch": "npm run dev:build -- --watch",
         "test": "run-p test:*",
         "test:unit": "exit 0",
         "test:fmt": "prettier --check --loglevel warn .",
