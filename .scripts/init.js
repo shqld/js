@@ -82,21 +82,10 @@ async function main() {
 
     const moving_locations = entries
         .map((entry_name) => {
-            if (
-                // dotfiles are just extending the ones in root_dir so we
-                // don't want to overwrite them
-                entry_name.startsWith('.') ||
-                // Removing node_modules in root_dir is heavy and replacing
-                // node_modules is not needed since 'npm install' resolves
-                entry_name === 'node_modules'
-            ) {
-                return
-            }
-
             const from = path.join(selected_env_dir, entry_name)
             const to = path.join(root_dir, entry_name)
 
-            return { from, to }
+            return { name: entry_name, from, to }
         })
         .filter(Boolean)
 
@@ -115,12 +104,14 @@ async function main() {
     debug('moving files to root dir ...')
 
     await Promise.all(
-        moving_locations.map(async ({ from, to }) => {
-            if (existsSync(to)) {
-                await fs.rm(to, { recursive: true })
+        moving_locations.map(async ({ name, from, to }) => {
+            if (existsSync(to) && name !== 'package.json') {
+                // dotfiles are just extending the ones in root_dir so we
+                // don't want to overwrite them
+                debug('file exists ... skipped:', to)
+            } else {
+                await fs.rename(from, to)
             }
-
-            await fs.rename(from, to)
         })
     )
 
