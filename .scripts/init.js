@@ -101,6 +101,22 @@ async function main() {
         )
     }
 
+    debug('removing empty dirs in root dir ...')
+
+    await Promise.all(
+        (
+            await fs.readdir(root_dir)
+        ).map(async (entry_name) => {
+            try {
+                await fs.rmdir(entry_name)
+            } catch (err) {
+                if (err.code !== 'ENOTEMPTY' && err.code !== 'ENOTDIR') {
+                    throw err
+                }
+            }
+        })
+    )
+
     debug('moving files to root dir ...')
 
     await Promise.all(
